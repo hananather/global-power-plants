@@ -15,10 +15,11 @@ import dash_bootstrap_components as dbc
 from plotly import graph_objs as go
 
 
-df = pd.read_csv("data/globalpowerplantdata/global_power_plant_database.csv")
+app = dash.Dash(__name__,external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
 
+df = pd.read_csv("data/global_power_plant_database.csv")
 countries = df['country_long'].unique()
-app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # the style arguments for the sidebar. We use position:fixed and a fixed width
 SIDEBAR_STYLE = {
@@ -145,4 +146,4 @@ def update_summary(click_Data):
     return update
                 
 if __name__ == '__main__':
-    app.run_server(host='127.0.0.1',port=8086,debug=True)
+    app.run_server(debug=True)
